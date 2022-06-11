@@ -1,7 +1,9 @@
 
+import os
 
-def getMetadataURL(i):
-  i += 15
+
+def getMetadataCodeFromDay(dayIndex):
+  i = dayIndex + 15
   doopsie = chr((i%15)+97)
   lottie = (i*6) % 12
   dollop = chr(((i*2) % 10)+105)
@@ -18,8 +20,8 @@ def getMetadataURL(i):
   return stromboli
 
 
-def getImageURL(i):
-  i += 33
+def getImageCodeFromDay(dayIndex):
+  i = dayIndex + 33
   doopsie = chr((i%26)+97)
   lottie = (i*5) % 16
   dollop = chr(((i*2) % 19)+105)
@@ -35,6 +37,44 @@ def getImageURL(i):
   return stromboli
 
 
+
+
+
+def get_directories():
+  queueFolder = input("Queue Folder: ")
+  imageFolder = input("Image Folder: ")
+
+  currentDir = os.path.dirname(os.getcwd())
+
+  if queueFolder == "":
+    queueFolder = "queue"
+  if imageFolder == "":
+    imageFolder = "files"
+
+  queueFolder = currentDir + "/" + queueFolder
+  imageFolder = currentDir + "/" + imageFolder
+  
+  print("Set Queue Folder to " + queueFolder)
+  print("Set Image Folder to " + imageFolder)
+
+  return {
+    "queueDir": queueFolder,
+    "imageDir": imageFolder
+    }
+  
+
+
+
+
+directories = get_directories()
+    
+for file in os.listdir(directories.queueDir):
+  print (file)
+  
+  
+print()
+
+'''
 for i in range(10000000):
   print("")
   print("Day " + str(i))
@@ -43,6 +83,7 @@ for i in range(10000000):
   print("Metadata :")
   print("metadata_"+getMetadataURL(i))
   print("")
+  '''
 
   
   
