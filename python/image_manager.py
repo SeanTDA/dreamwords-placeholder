@@ -1,5 +1,6 @@
 
-import os
+import os, shutil
+import json
 
 
 def getMetadataCodeFromDay(dayIndex):
@@ -14,7 +15,6 @@ def getMetadataCodeFromDay(dayIndex):
   pebble = round(i*6.14159) % 9684
   plub = round(i*11.93) % 2680
   stromboli =  str(lottie) + str(greg) + dro + str(pebble) + str(plub) + dollop + str(sam) + str(danthony)
-  print(len(stromboli))
   if len(stromboli) % 2 == 1:
     stromboli = doopsie + stromboli
   return stromboli
@@ -40,50 +40,101 @@ def getImageCodeFromDay(dayIndex):
 
 
 
-def get_directories():
-  queueFolder = input("Queue Folder: ")
+def getDirectories():
+  preprocessedFolder = input("Preprocessed Folder: ")
   imageFolder = input("Image Folder: ")
 
   currentDir = os.path.dirname(os.getcwd())
 
-  if queueFolder == "":
-    queueFolder = "queue"
+  if preprocessedFolder == "":
+    preprocessedFolder = "preprocessed"
   if imageFolder == "":
     imageFolder = "files"
 
-  queueFolder = currentDir + "/" + queueFolder
+  preprocessedFolder = currentDir + "/" + preprocessedFolder
   imageFolder = currentDir + "/" + imageFolder
   
-  print("Set Queue Folder to " + queueFolder)
+  print("Set Preprocessed Folder to " + preprocessedFolder)
   print("Set Image Folder to " + imageFolder)
 
   return {
-    "queueDir": queueFolder,
+    "preprocessedDir": preprocessedFolder,
     "imageDir": imageFolder
     }
   
 
 
+def getDayCount(imageDir):
+  dayCount = 0
+  for file in os.listdir(imageDir):
+    if "metadata" in file:
+      dayCount += 1
+  return dayCount
 
 
-directories = get_directories()
+
+
+def processFiles (preprocessedDir, initialDay):
+  currentDay = initialDay
+  for file in os.listdir(preprocessedDir):
+
+    fileName = str(file)
+
+    metadataCode = getMetadataCodeFromDay(currentDay)
+    imageCode = getImageCodeFromDay(currentDay)
+
+    metadataFileURL = imageDir + "/metadata_" + metadataCode + ".json"
+    imageFileURL = imageDir + "/image_" + imageCode + ".png"
+
+
+    # Create Metadata File
+    metadata = {"solution": fileName.replace("_"," ").replace(".png","")}
+    with open(metadataFileURL, 'w') as newMetadataFile:
+      json.dump(metadata, newMetadataFile)
+
     
-for file in os.listdir(directories.queueDir):
-  print (file)
-  
-  
-print()
+    # Copy Image (with new name)
+    shutil.copy(preprocessedDir + "/" + fileName, imageFileURL)
+    
+    currentDay += 1
 
-'''
+
+
+directories = getDirectories()
+
+imageDir = directories['imageDir']
+preprocessedDir = directories['preprocessedDir']
+
+defaultDay = getDayCount(imageDir)
+initialDay = input ("Initial Day? ("+str(defaultDay)+"): ")
+if initialDay == "":
+  initialDay = defaultDay
+
+processFiles(preprocessedDir, initialDay)
+
+  
+  
+  
+print("")
+print("")
+print("")
+print("")
+print("")
+print("")
+print("")
+print("")
+print("")
+print("")
+print("")
 for i in range(10000000):
   print("")
   print("Day " + str(i))
   print("Image :")
-  print("image_"+getImageURL(i))
+  print("image_"+getImageCodeFromDay(i))
   print("Metadata :")
-  print("metadata_"+getMetadataURL(i))
+  print("metadata_"+getMetadataCodeFromDay(i))
   print("")
-  '''
+  
 
   
   
