@@ -1,0 +1,6 @@
+ADJ = Adjective
+OBJ = Thing
+COL = Colour
+VER = Verb
+TIM = Time of Day
+ART = Artist
