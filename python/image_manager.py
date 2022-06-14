@@ -47,7 +47,7 @@ def getDirectories():
   currentDir = os.path.dirname(os.getcwd())
 
   if preprocessedFolder == "":
-    preprocessedFolder = "preprocessed"
+    preprocessedFolder = "01_preprocessed"
   if imageFolder == "":
     imageFolder = "files"
 
@@ -87,6 +87,8 @@ def processFiles (preprocessedDir, initialDay):
     imageFileURL = imageDir + "/image_" + imageCode + ".png"
 
 
+    solution = (" ".join(fileName.split("_")[1:]).replace(".png","")).strip()
+
     # Create Metadata File
     solution = (fileName.split("_")[1]).replace("_"," ").replace(".png","")
     metadata = {"solution": fileName.replace("_"," ").replace(".png","")}
@@ -115,7 +117,7 @@ processFiles(preprocessedDir, initialDay)
 
   
   
-  
+'''
 print("")
 print("")
 print("")
@@ -135,6 +137,7 @@ for i in range(10000000):
   print("Metadata :")
   print("metadata_"+getMetadataCodeFromDay(i))
   print("")
+'''
   
 
   
