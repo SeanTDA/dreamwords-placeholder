@@ -42,23 +42,31 @@ def getImageCodeFromDay(dayIndex):
 
 def getDirectories():
   preprocessedFolder = input("Preprocessed Folder: ")
+  preprocessedConvertedFolder = input("Preprocessed Converted Folder: ")
   imageFolder = input("Image Folder: ")
 
   currentDir = os.path.dirname(os.getcwd())
 
   if preprocessedFolder == "":
     preprocessedFolder = "01_preprocessed"
+    
+  if preprocessedConvertedFolder == "":
+    preprocessedConvertedFolder = "02_preprocessed_converted"
+    
   if imageFolder == "":
     imageFolder = "files"
 
   preprocessedFolder = currentDir + "/" + preprocessedFolder
+  preprocessedConvertedFolder = currentDir + "/" + preprocessedConvertedFolder
   imageFolder = currentDir + "/" + imageFolder
   
   print("Set Preprocessed Folder to " + preprocessedFolder)
+  print("Set Preprocessed Converted Folder to " + preprocessedConvertedFolder)
   print("Set Image Folder to " + imageFolder)
 
   return {
     "preprocessedDir": preprocessedFolder,
+    "preprocessedConvertedDir": preprocessedConvertedFolder,
     "imageDir": imageFolder
     }
   
@@ -74,7 +82,7 @@ def getDayCount(imageDir):
 
 
 
-def processFiles (preprocessedDir, initialDay):
+def processFiles (preprocessedDir, preprocessedConvertedDir, initialDay):
   currentDay = initialDay
   for file in os.listdir(preprocessedDir):
 
@@ -98,6 +106,7 @@ def processFiles (preprocessedDir, initialDay):
     
     # Copy Image (with new name)
     shutil.copy(preprocessedDir + "/" + fileName, imageFileURL)
+    shutil.move(preprocessedDir + "/" + fileName, preprocessedConvertedDir + "/" + fileName)
     
     currentDay += 1
 
@@ -107,13 +116,14 @@ directories = getDirectories()
 
 imageDir = directories['imageDir']
 preprocessedDir = directories['preprocessedDir']
+preprocessedConvertedDir = directories['preprocessedConvertedDir']
 
 defaultDay = getDayCount(imageDir)
 initialDay = input ("Initial Day? ("+str(defaultDay)+"): ")
 if initialDay == "":
   initialDay = defaultDay
 
-processFiles(preprocessedDir, initialDay)
+processFiles(preprocessedDir, preprocessedConvertedDir, initialDay)
 
   
   

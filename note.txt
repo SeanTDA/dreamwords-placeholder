@@ -1,0 +1,13 @@
+To convert:
+
+Pop the files into /01_preprocessed/ named like
+
+000_icecream_van.png
+001_gold_man.png
+002_tree_frog_rainbow.png
+
+The converter will ignore the prefix.
+
+Run the converter in /python/
+
+Keep pressing enter in the prompts.
