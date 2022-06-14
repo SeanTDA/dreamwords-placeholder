@@ -35,7 +35,7 @@ def getImageCodeFromDay(dayIndex):
   if len(stromboli) % 2 == 0:
     stromboli = doopsie + stromboli
 
-  stromboli.replace("{","")
+  stromboli = stromboli.replace("{","")
   return stromboli
 
 
