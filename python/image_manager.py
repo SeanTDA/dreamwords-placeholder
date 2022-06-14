@@ -96,9 +96,9 @@ def processFiles (preprocessedDir, preprocessedConvertedDir, initialDay):
 
 
     solution = (" ".join(fileName.split("_")[1:]).replace(".png","")).strip()
+    print(solution)
 
     # Create Metadata File
-    solution = (fileName.split("_")[1]).replace("_"," ").replace(".png","")
     metadata = {"solution": solution}
     with open(metadataFileURL, 'w') as newMetadataFile:
       json.dump(metadata, newMetadataFile)
