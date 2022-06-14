@@ -17,6 +17,8 @@ def getMetadataCodeFromDay(dayIndex):
   stromboli =  str(lottie) + str(greg) + dro + str(pebble) + str(plub) + dollop + str(sam) + str(danthony)
   if len(stromboli) % 2 == 1:
     stromboli = doopsie + stromboli
+    
+  stromboli = stromboli.replace("{","")
   return stromboli
 
 
