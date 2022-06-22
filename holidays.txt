@@ -1,0 +1,30 @@
+
+0 = 28 June 2022 = Launch Day
+1 = 29 June 2022
+2 = 30 June 2022
+3 = 31 June 2022
+4 = 32 June 2022
+5 = 33 June 2022
+6 = 34 June 2022
+
+
+
+[x] 6 = 4 July 2022 = Independance Day 
+[x] 59 = 26 August 2022 = Wear it Purple 
+[x] 68 = 4 September 2022 = Fathers Day
+[x] 125 = 31 October 2022 = Halloween
+[x] 127 = 2 November 2022  = Day of the Dead
+[x] 150 = 25 November 2022 = Black Friday  
+[x] 151 = 26 November 2022 = Sean Birthday  
+[x] 173 = 18 December 2022 = Hanukah 
+[x] 180 = 25 December 2022 = Christmas 
+[x] 186 = 31 December 2022 = New Years
+[x] 208 = 22 Jan 2023 = Chinese New Year (Rabbit)
+[x] 231 = 14 Feb 2023 = Valentines  
+242 = 25 Feb 2023 = Mardi Gras 
+267 = 22 March 2023 = Ramadan
+[x] 277 = 1 April 2023 = April Fools 
+285 = 9 April 2023 = Easter 
+298 = 22 April 2023 = Earth Day
+311 = 5 May 2023 = Cinco de mayo
+320 = 14 May 2023 = Mothers Day

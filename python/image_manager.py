@@ -41,6 +41,22 @@ def getImageCodeFromDay(dayIndex):
   return stromboli
 
 
+def getDayFromMetadataCode(metadataCode):
+  for i in range(100000):
+    if getMetadataCodeFromDay(i) == metadataCode:
+      return i
+  print("Error ! No day found for " + metadataCode)
+  return -1
+    
+def getDayFromImageCode(imageCode):
+  for i in range(100000):
+    if getImageCodeFromDay(i) == imageCode:
+      return i
+  print("Error ! No day found for " + imageCode)
+  return -1
+    
+  
+
 
 
 
@@ -116,6 +132,10 @@ def processFiles (preprocessedDir, preprocessedConvertedDir, initialDay):
 
 
 
+
+
+'''
+
 directories = getDirectories()
 
 imageDir = directories['imageDir']
@@ -129,10 +149,14 @@ if initialDay == "":
 
 processFiles(preprocessedDir, preprocessedConvertedDir, initialDay)
 
-  
-#print("metadata_"+getMetadataCodeFromDay(15))
-  
+
 '''
+
+print(getDayFromImageCode("7n3786512441swl336345"))
+
+'''
+  
+
 print("")
 print("")
 print("")
@@ -152,6 +176,7 @@ for i in range(10000000):
   print("Metadata :")
   print("metadata_"+getMetadataCodeFromDay(i))
   print("")
+
 '''
   
 
