@@ -62,32 +62,26 @@ def getDayFromImageCode(imageCode):
 
 def getDirectories():
   preprocessedFolder = input("Preprocessed Folder: ")
-  preprocessedConvertedFolder = input("Preprocessed Converted Folder: ")
-  imageFolder = input("Image Folder: ")
+  convertedFolder = input("Converted Folder: ")
 
   currentDir = os.path.dirname(os.getcwd())
 
   if preprocessedFolder == "":
     preprocessedFolder = "01_preprocessed"
     
-  if preprocessedConvertedFolder == "":
-    preprocessedConvertedFolder = "02_preprocessed_converted"
+  if convertedFolder == "":
+    convertedFolder = "02_converted"
     
-  if imageFolder == "":
-    imageFolder = "files"
 
   preprocessedFolder = currentDir + "/" + preprocessedFolder
-  preprocessedConvertedFolder = currentDir + "/" + preprocessedConvertedFolder
-  imageFolder = currentDir + "/" + imageFolder
+  convertedFolder = currentDir + "/" + convertedFolder
   
   print("Set Preprocessed Folder to " + preprocessedFolder)
-  print("Set Preprocessed Converted Folder to " + preprocessedConvertedFolder)
-  print("Set Image Folder to " + imageFolder)
-
+  print("Set Converted Folder to " + convertedFolder)
+  
   return {
     "preprocessedDir": preprocessedFolder,
-    "preprocessedConvertedDir": preprocessedConvertedFolder,
-    "imageDir": imageFolder
+    "convertedDir": convertedFolder
     }
   
 
@@ -102,7 +96,7 @@ def getDayCount(imageDir):
 
 
 
-def processFiles (preprocessedDir, preprocessedConvertedDir, initialDay):
+def processFiles (preprocessedDir, convertedDir, initialDay):
   currentDay = initialDay
   for file in os.listdir(preprocessedDir):
 
@@ -111,8 +105,8 @@ def processFiles (preprocessedDir, preprocessedConvertedDir, initialDay):
     metadataCode = getMetadataCodeFromDay(currentDay)
     imageCode = getImageCodeFromDay(currentDay)
 
-    metadataFileURL = imageDir + "/metadata_" + metadataCode + ".json"
-    imageFileURL = imageDir + "/image_" + imageCode + ".png"
+    metadataFileURL = convertedDir + "/metadata_" + metadataCode + ".json"
+    imageFileURL = convertedDir + "/image_" + imageCode + ".png"
 
 
     solution = (" ".join(fileName.split("_")[1:]).replace(".png","")).strip()
@@ -126,7 +120,7 @@ def processFiles (preprocessedDir, preprocessedConvertedDir, initialDay):
     
     # Copy Image (with new name)
     shutil.copy(preprocessedDir + "/" + fileName, imageFileURL)
-    shutil.move(preprocessedDir + "/" + fileName, preprocessedConvertedDir + "/" + fileName)
+    #shutil.move(preprocessedDir + "/" + fileName, convertedDir + "/" + fileName)
     
     currentDay += 1
 
@@ -134,25 +128,25 @@ def processFiles (preprocessedDir, preprocessedConvertedDir, initialDay):
 
 
 
-'''
+
 
 directories = getDirectories()
 
-imageDir = directories['imageDir']
-preprocessedDir = directories['preprocessedDir']
-preprocessedConvertedDir = directories['preprocessedConvertedDir']
 
-defaultDay = getDayCount(imageDir)
+preprocessedDir = directories['preprocessedDir']
+convertedDir = directories['convertedDir']
+
+defaultDay = getDayCount(convertedDir)
 initialDay = input ("Initial Day? ("+str(defaultDay)+"): ")
 if initialDay == "":
   initialDay = defaultDay
 
-processFiles(preprocessedDir, preprocessedConvertedDir, initialDay)
+processFiles(preprocessedDir, convertedDir, initialDay)
 
 
-'''
 
-print(getDayFromImageCode("7n3786512441swl336345"))
+
+#print(getDayFromImageCode("7n3786512441swl336345"))
 
 '''
   
