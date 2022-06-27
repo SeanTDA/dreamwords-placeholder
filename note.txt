@@ -14,3 +14,11 @@ Keep pressing enter in the prompts.
 
 
 Upscale all images 200% via Gigapixel
+
+
+---
+When reprocessing metadata,
+Initial Day? : 0
+Run Mode : 1
+
+Then upload .json files to aws bucket (in converted folder)

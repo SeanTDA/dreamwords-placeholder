@@ -96,7 +96,7 @@ def getDayCount(imageDir):
 
 
 
-def processFiles (preprocessedDir, convertedDir, initialDay):
+def processFiles (preprocessedDir, convertedDir, initialDay, runMode):
   currentDay = initialDay
   for file in os.listdir(preprocessedDir):
 
@@ -109,19 +109,27 @@ def processFiles (preprocessedDir, convertedDir, initialDay):
     imageFileURL = convertedDir + "/image_" + imageCode + ".png"
 
 
-    solution = (" ".join(fileName.split("_")[1:]).replace(".png","")).strip()
-    print(solution)
+    metaStringData = (" ".join(fileName.split("_")[1:]).replace(".png","")).strip().split("X")
+
+    solution = metaStringData[0]
+
+    print("Processing " + solution + "  " + metadataCode)
+    
+    if len(metaStringData) > 1:
+      hiddenWords = metaStringData[1]
+    else:
+      hiddenWords = ""
+    
 
     # Create Metadata File
-    metadata = {"solution": solution}
+    metadata = {"solution": solution, "hiddenWords": hiddenWords}
     with open(metadataFileURL, 'w') as newMetadataFile:
       json.dump(metadata, newMetadataFile)
 
-    
-    # Copy Image (with new name)
-    shutil.copy(preprocessedDir + "/" + fileName, imageFileURL)
-    #shutil.move(preprocessedDir + "/" + fileName, convertedDir + "/" + fileName)
-    
+    if (runMode == 0):
+      # Copy Image (with new name)
+      shutil.copy(preprocessedDir + "/" + fileName, imageFileURL)
+      #shutil.move(preprocessedDir + "/" + fileName, convertedDir + "/" + fileName
     currentDay += 1
 
 
@@ -140,8 +148,14 @@ defaultDay = getDayCount(convertedDir)
 initialDay = input ("Initial Day? ("+str(defaultDay)+"): ")
 if initialDay == "":
   initialDay = defaultDay
+initialDay = int(initialDay)
 
-processFiles(preprocessedDir, convertedDir, initialDay)
+runMode = input("Run Mode (0 = normal, 1 = only meta) ")
+if runMode == "":
+  runMode = "0"
+runMode = int(runMode)
+
+processFiles(preprocessedDir, convertedDir, initialDay, runMode)
 
 
 
