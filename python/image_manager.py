@@ -61,10 +61,15 @@ def getDayFromImageCode(imageCode):
 
 
 def getDirectories():
+  batchID = input("Batch ID: ")
   preprocessedFolder = input("Preprocessed Folder: ")
   convertedFolder = input("Converted Folder: ")
 
-  currentDir = os.path.dirname(os.getcwd())
+  currentDir = os.path.dirname(os.getcwd()) # get parent dir
+
+
+  if batchID == "":
+    batchID = "001"
 
   if preprocessedFolder == "":
     preprocessedFolder = "01_preprocessed"
@@ -73,8 +78,8 @@ def getDirectories():
     convertedFolder = "02_converted"
     
 
-  preprocessedFolder = currentDir + "/" + preprocessedFolder
-  convertedFolder = currentDir + "/" + convertedFolder
+  preprocessedFolder = currentDir + "/" + "batch_" + batchID + "/" + preprocessedFolder
+  convertedFolder = currentDir + "/" + "batch_" + batchID + "/" + convertedFolder
   
   print("Set Preprocessed Folder to " + preprocessedFolder)
   print("Set Converted Folder to " + convertedFolder)
@@ -136,7 +141,6 @@ def processFiles (preprocessedDir, convertedDir, initialDay, runMode):
     if (runMode == 0):
       # Copy Image (with new name)
       shutil.copy(preprocessedDir + "/" + fileName, imageFileURL)
-      #shutil.move(preprocessedDir + "/" + fileName, convertedDir + "/" + fileName
     currentDay += 1
     
 
@@ -158,7 +162,7 @@ if initialDay == "":
   initialDay = defaultDay
 initialDay = int(initialDay)
 
-runMode = input("Run Mode (0 = normal, 1 = only meta) ")
+runMode = input("Run Mode (0 = images + meta, 1 = only meta) ")
 if runMode == "":
   runMode = "0"
 runMode = int(runMode)
@@ -197,5 +201,6 @@ for i in range(10000000):
   
 
   
+#shutil.move(preprocessedDir + "/" + fileName, convertedDir + "/" + fileName
   
   
