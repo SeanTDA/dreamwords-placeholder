@@ -109,9 +109,9 @@ def processFiles (preprocessedDir, convertedDir, initialDay, runMode):
     imageFileURL = convertedDir + "/image_" + imageCode + ".png"
 
 
-    metaStringData = (" ".join(fileName.split("_")[1:]).replace(".png","")).strip().split("X")
+    metaStringData = ((("_".join(fileName.split("_")[1:])).replace(".png","")).strip()).split("X")
 
-    solution = metaStringData[0]
+    solution = metaStringData[0].replace("_", " ")
 
     print("Processing " + solution + "  " + metadataCode)
     
@@ -119,10 +119,17 @@ def processFiles (preprocessedDir, convertedDir, initialDay, runMode):
       hiddenWords = metaStringData[1]
     else:
       hiddenWords = ""
-    
 
+    
+    if len(metaStringData) > 2:
+      imageCount = metaStringData[2].replace("_"," ")
+    else:
+      imageCount = "1 2 3 4"
+
+    
     # Create Metadata File
-    metadata = {"solution": solution, "hiddenWords": hiddenWords}
+    metadata = {"solution": solution, "hiddenWords": hiddenWords, "imageCount": imageCount}
+    
     with open(metadataFileURL, 'w') as newMetadataFile:
       json.dump(metadata, newMetadataFile)
 
@@ -131,6 +138,7 @@ def processFiles (preprocessedDir, convertedDir, initialDay, runMode):
       shutil.copy(preprocessedDir + "/" + fileName, imageFileURL)
       #shutil.move(preprocessedDir + "/" + fileName, convertedDir + "/" + fileName
     currentDay += 1
+    
 
 
 
