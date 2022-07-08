@@ -47,11 +47,92 @@ def getGoogleSheetsValues(valueRange):
 
 
 def getWordsFromURL(url):
-    return requests.get(url).text.split("\n")
+    plainText = requests.get(url).text
+    plainText = plainText.replace(" ", "\n")
+    plainText = plainText.replace(":", "\n")
+    plainText = plainText.replace(".","").replace("(","").replace(")","").replace(",","").replace("'","").replace("`","").replace("?","").replace("!","").replace(";","").replace("\"", "").replace("[","").replace("]","").replace("*","")
+    plainText = plainText.lower()
+    
+    wordArray = plainText.split("\n")
+
+    filteredWordArray = []
+    for word in wordArray:
+        if ("</" in word) or ("=\"" in word) or ("&quot" in word) or ("js-" in word) or ("id=" in word) or ("-link" in word) or (any(char.isdigit() for char in word)):
+            continue
+        filteredWordArray.append(word)
+    
+    uniqueWordArray = list(set(filteredWordArray))
+    return uniqueWordArray
 
 def getOnlineList():
     onlineList = []
+    
+    print("+ LOADING WORD LIST + ")
+    
+    #------------------------- Books Lists
+    print("-- LOADING [Books]")
 
+    '''
+    onlineList += getWordsFromURL("https://gist.githubusercontent.com/phillipj/4944029/raw/75ba2243dd5ec2875f629bf5d79f6c1e4b5a8b46/alice_in_wonderland.txt")
+    print("LOADED: Alice in Wonderland")
+'''
+    onlineList += getWordsFromURL("https://raw.githubusercontent.com/hold-the-phone/classic_books_in_txt/master/my_corpus/Frankenstein_Shelley.txt")
+    print("LOADED: Frankenstein")
+
+    onlineList += getWordsFromURL("https://raw.githubusercontent.com/hold-the-phone/classic_books_in_txt/master/my_corpus/Crime_and_punishment.txt")
+    print("LOADED: Crime and Punishment")
+
+    onlineList += getWordsFromURL("https://github.com/hold-the-phone/classic_books_in_txt/blob/master/my_corpus/Greenmantle.txt")
+    print("LOADED: Greenmantle")
+    
+    onlineList += getWordsFromURL("https://raw.githubusercontent.com/hold-the-phone/classic_books_in_txt/master/my_corpus/Moby_Dick_Melville.txt")
+    print("LOADED: Moby Dick")
+    
+    onlineList += getWordsFromURL("https://raw.githubusercontent.com/hold-the-phone/classic_books_in_txt/master/my_corpus/Ulysses.txt")
+    print("LOADED: Ulysses")
+    
+    onlineList += getWordsFromURL("https://raw.githubusercontent.com/hold-the-phone/classic_books_in_txt/master/my_corpus/adventures_of_sherlock.txt")
+    print("LOADED: Sherlock")
+    
+    onlineList += getWordsFromURL("https://raw.githubusercontent.com/hold-the-phone/classic_books_in_txt/master/my_corpus/house_of_the_vampire.txt")
+    print("LOADED: House of the Vampire")
+    
+    onlineList += getWordsFromURL("https://raw.githubusercontent.com/hold-the-phone/classic_books_in_txt/master/my_corpus/dracula.txt")
+    print("LOADED: Dracula")
+    
+    onlineList += getWordsFromURL("https://raw.githubusercontent.com/hold-the-phone/classic_books_in_txt/master/my_corpus/seed_of_the_arctic_ice.txt")
+    print("LOADED: Seed of the Artic Ice")
+    
+    onlineList += getWordsFromURL("https://raw.githubusercontent.com/hold-the-phone/classic_books_in_txt/master/my_corpus/wizard_of_oz.txt")
+    print("LOADED: Wizard of Oz")
+    
+    onlineList += getWordsFromURL("https://raw.githubusercontent.com/hold-the-phone/classic_books_in_txt/master/my_corpus/treasure_island.txt")
+    print("LOADED: Treasure Island")
+    
+    onlineList += getWordsFromURL("https://raw.githubusercontent.com/hold-the-phone/classic_books_in_txt/master/my_corpus/three_musketeers.txt")
+    print("LOADED: Three Musketeers")
+    
+    onlineList += getWordsFromURL("https://raw.githubusercontent.com/hold-the-phone/classic_books_in_txt/master/my_corpus/young_robin_hood.txt")
+    print("LOADED: Young Robin Hood")
+    
+    onlineList += getWordsFromURL("https://raw.githubusercontent.com/hold-the-phone/classic_books_in_txt/master/my_corpus/king_arthur_and_knights.txt")
+    print("LOADED: Legend of King Arthur")
+    
+    onlineList += getWordsFromURL("https://raw.githubusercontent.com/hold-the-phone/classic_books_in_txt/master/my_corpus/call_of_the_wild.txt")
+    print("LOADED: Call of the Wild")
+    
+    onlineList += getWordsFromURL("https://raw.githubusercontent.com/hold-the-phone/classic_books_in_txt/master/my_corpus/cabin_fever.txt")
+    print("LOADED: Cabin Fever")
+    
+    onlineList += getWordsFromURL("https://raw.githubusercontent.com/hold-the-phone/classic_books_in_txt/master/my_corpus/around_the_world_in_80_days.txt")
+    print("LOADED: Around the World in 80 Days")
+
+    
+    #------------------------- Word Lists
+    print("-- LOADING [Word Lists]")
+    
+    onlineList += getWordsFromURL("https://raw.githubusercontent.com/sujithps/Dictionary/master/Oxford%20English%20Dictionary.txt")
+    print("LOADED: Oxford Dictionary")
 
     onlineList += getWordsFromURL("https://raw.githubusercontent.com/sroberts/wordlists/master/nouns.txt")
     onlineList += getWordsFromURL("https://raw.githubusercontent.com/sroberts/wordlists/master/adjectives.txt")
@@ -65,11 +146,21 @@ def getOnlineList():
     onlineList += getWordsFromURL("https://raw.githubusercontent.com/glitchdotcom/friendly-words/master/words/predicates.txt")
     onlineList += getWordsFromURL("https://raw.githubusercontent.com/glitchdotcom/friendly-words/master/words/teams.txt")
     onlineList += getWordsFromURL("http://www.desiquintans.com/downloads/nounlist/nounlist.txt")
+    print("LOADED: Word List Library")
+
+    
+    
+    
    # onlineList += getWordsFromURL("https://raw.githubusercontent.com/dwyl/english-words/master/words.txt")
     
 
     #onlineList += getWordsFromURL("https://gist.githubusercontent.com/Rhomboid/8a61864a5fe1fca3013ba94ed0be9e83/raw/17cc35afc904e36a8141053636a96fdf9729fd0a/nouns.txt")    
 
+
+    randomiseOrder(onlineList)
+    onlineList = onlineList[0:MAX_ONLINE_CAP]
+    
+    
     return onlineList
 
     
@@ -79,6 +170,9 @@ def randomiseOrder(myList):
 
 def selectWeightedRandom(data):
     return random.choices(population = data["values"], weights = data["weights"])[0]
+
+MAX_ONLINE_CAP = 50000
+WORDS_PER_RUN = 700
 
 SHEETRANGE_EASY_OBJ = 'A3:A5000'
 SHEETRANGE_EASY_DES = 'B3:B5000'
@@ -92,7 +186,14 @@ PREPROCESSED_HARD_DES = getGoogleSheetsValues(SHEETRANGE_HARD_DES)
 
 PREPROCESSED_EASY = PREPROCESSED_EASY_OBJ + PREPROCESSED_EASY_DES
 PREPROCESSED_HARD = PREPROCESSED_HARD_OBJ + PREPROCESSED_HARD_DES
-PREPROCESSED = PREPROCESSED_EASY + PREPROCESSED_HARD + getOnlineList()
+
+
+PREPROCESSED = getOnlineList()
+
+PREPROCESSED += PREPROCESSED_EASY + PREPROCESSED_HARD
+print("LOADED: Google Sheets Word List")
+
+
 randomiseOrder(PREPROCESSED)
 
 
@@ -233,7 +334,7 @@ def displayAllWordlists(currentPhrase):
 
     randomiseOrder(PREPROCESSED)
     
-    displayWordlist(PREPROCESSED[0:800], currentPhrase)
+    displayWordlist(PREPROCESSED[0:WORDS_PER_RUN], currentPhrase)
 
 
 
