@@ -118,7 +118,7 @@ def processFiles (preprocessedDir, convertedDir, initialDay, runMode):
 
     solution = metaStringData[0].replace("_", " ")
 
-    print("Processing " + solution + "  " + metadataCode)
+    print("Processing " + solution + " " + imageCode + " " + metadataCode)
     
     if len(metaStringData) > 1:
       hiddenWords = metaStringData[1]
@@ -149,6 +149,8 @@ def processFiles (preprocessedDir, convertedDir, initialDay, runMode):
 
 
 
+'''
+
 
 directories = getDirectories()
 
@@ -173,9 +175,9 @@ processFiles(preprocessedDir, convertedDir, initialDay, runMode)
 
 
 #print(getDayFromImageCode("7n3786512441swl336345"))
-
 '''
-  
+
+
 
 print("")
 print("")
@@ -197,8 +199,8 @@ for i in range(10000000):
   print("metadata_"+getMetadataCodeFromDay(i))
   print("")
 
-'''
-  
+
+
 
   
 #shutil.move(preprocessedDir + "/" + fileName, convertedDir + "/" + fileName

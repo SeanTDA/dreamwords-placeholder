@@ -57,7 +57,7 @@ def getWordsFromURL(url):
 
     filteredWordArray = []
     for word in wordArray:
-        if ("</" in word) or ("=\"" in word) or ("&quot" in word) or ("js-" in word) or ("id=" in word) or ("-link" in word) or (any(char.isdigit() for char in word)):
+        if ("</" in word) or ("=\"" in word) or ("&quot" in word) or ("js-" in word) or ("id=" in word) or ("_" in word) or ("-link" in word) or ("type=" in word) or ("class=" in word) or ("=" in word) or ("data-" in word) or (any(char.isdigit() for char in word)):
             continue
         filteredWordArray.append(word)
     
@@ -79,6 +79,8 @@ def getOnlineList():
     onlineList += getWordsFromURL("https://raw.githubusercontent.com/hold-the-phone/classic_books_in_txt/master/my_corpus/Frankenstein_Shelley.txt")
     print("LOADED: Frankenstein")
 
+
+    
     onlineList += getWordsFromURL("https://raw.githubusercontent.com/hold-the-phone/classic_books_in_txt/master/my_corpus/Crime_and_punishment.txt")
     print("LOADED: Crime and Punishment")
 
@@ -149,7 +151,7 @@ def getOnlineList():
     print("LOADED: Word List Library")
 
     
-    
+       
     
    # onlineList += getWordsFromURL("https://raw.githubusercontent.com/dwyl/english-words/master/words.txt")
     
@@ -349,6 +351,8 @@ while True:
         currentPhrase = ""
     elif currentPhrase == "":
         currentPhrase = enteredWord
+    elif enteredWord[0] == "-" and len(enteredWord) >= 2: # First letter is '-'
+        currentPhrase = enteredWord[1:]
     else:
         currentPhrase += " " + enteredWord
 
