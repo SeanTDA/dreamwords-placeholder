@@ -80,7 +80,7 @@ def getOnlineList():
     print("LOADED: Frankenstein")
 
 
-    
+    '''
     onlineList += getWordsFromURL("https://raw.githubusercontent.com/hold-the-phone/classic_books_in_txt/master/my_corpus/Crime_and_punishment.txt")
     print("LOADED: Crime and Punishment")
 
@@ -128,6 +128,7 @@ def getOnlineList():
     
     onlineList += getWordsFromURL("https://raw.githubusercontent.com/hold-the-phone/classic_books_in_txt/master/my_corpus/around_the_world_in_80_days.txt")
     print("LOADED: Around the World in 80 Days")
+    '''
 
     
     #------------------------- Word Lists
