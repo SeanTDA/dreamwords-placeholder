@@ -1,8 +1,8 @@
 import json
 import random
 import math
-from colorama import Fore, Back, Style, init
-from termcolor import colored
+#from colorama import Fore, Back, Style, init
+#from termcolor import colored
 import requests
 
 
@@ -76,8 +76,8 @@ def getOnlineList():
     onlineList += getWordsFromURL("https://gist.githubusercontent.com/phillipj/4944029/raw/75ba2243dd5ec2875f629bf5d79f6c1e4b5a8b46/alice_in_wonderland.txt")
     print("LOADED: Alice in Wonderland")
 '''
-    onlineList += getWordsFromURL("https://raw.githubusercontent.com/hold-the-phone/classic_books_in_txt/master/my_corpus/Frankenstein_Shelley.txt")
-    print("LOADED: Frankenstein")
+   # onlineList += getWordsFromURL("https://raw.githubusercontent.com/hold-the-phone/classic_books_in_txt/master/my_corpus/Frankenstein_Shelley.txt")
+   # print("LOADED: Frankenstein")
 
 
     '''
@@ -133,7 +133,9 @@ def getOnlineList():
     
     #------------------------- Word Lists
     print("-- LOADING [Word Lists]")
-    
+
+
+    '''
     onlineList += getWordsFromURL("https://raw.githubusercontent.com/sujithps/Dictionary/master/Oxford%20English%20Dictionary.txt")
     print("LOADED: Oxford Dictionary")
 
@@ -150,6 +152,11 @@ def getOnlineList():
     onlineList += getWordsFromURL("https://raw.githubusercontent.com/glitchdotcom/friendly-words/master/words/teams.txt")
     onlineList += getWordsFromURL("http://www.desiquintans.com/downloads/nounlist/nounlist.txt")
     print("LOADED: Word List Library")
+
+    onlineList += getWordsFromURL("https://github.com/skjorrface/animals.txt/blob/master/animals.txt")
+    print("LOADED: Animals")
+    '''
+    
 
     
        

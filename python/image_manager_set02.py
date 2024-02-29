@@ -30,6 +30,21 @@ def getDayFromImageCode(imageCode):
   print("Error ! No day found for " + imageCode)
   return -1
     
+
+def get_credit_entry(file_path, number):
+    try:
+        with open(file_path, 'r') as file:
+            data = json.load(file)
+            return data[str(number)]
+    except FileNotFoundError:
+        print(f"File not found: {file_path}")
+        return None
+    except json.JSONDecodeError as e:
+        print(f"Error decoding JSON: {e}")
+        return None
+    except KeyError:
+        print(f"Key not found: {number}")
+        return None
   
 
 
@@ -71,15 +86,59 @@ def processFiles (preprocessedDir, convertedDir, initialDay, runMode):
     fileNameStripped = fileName.replace(".png","")
     imageCountPart =  " ".join([num for num in fileNameStripped.split("X")[1]]) if ("X" in fileNameStripped) else ""
     solutionPart = " ".join((fileNameStripped.split("X")[0]).split("_")[1:]) if "X" in fileNameStripped else " ".join(fileNameStripped.split("_")[1:])
-    metaStringData = {"solution": solutionPart, "imageCount":  imageCountPart  }
+
+
+
+    hintGoodLetters = ""
+    hintBadLetters = ""
+    hintHiddenLetters = ""
+
+
+    if fileNameStripped.count("X") >= 2:
+        hintGoodLetters = fileNameStripped.split("X")[2]
+
+    if fileNameStripped.count("X") >= 3:
+        hintBadLetters = fileNameStripped.split("X")[3]
+
+    if fileNameStripped.count("X") >= 4:
+        hintHiddenLetters = fileNameStripped.split("X")[4]
+
+    creditData = get_credit_entry(preprocessedDir+"/credits.json", currentDay)
+    
+    #inspired =
+    print(creditData)
+    inspiredInfo = ""
+    creditsInfo = ""
+    if creditData is not None:
+      inspiredInfo = creditData["inspired"]
+      creditsInfo = creditData["credits"]
+
+
+
+    metaStringData = {"solution": solutionPart,
+                      "imageCount": imageCountPart,
+                      "hintGoodLetters": hintGoodLetters,
+                      "hintBadLetters": hintBadLetters,
+                      "hintHiddenLetters":hintHiddenLetters,
+                      "inspired":inspiredInfo,
+                      "credits":creditsInfo
+                      }
 
 
 
     solution = metaStringData["solution"]
     
 
-    print("Processing " + solution + " " + imageCode + " " + metadataCode)
+    #print("Processing " + solution + " " + imageCode + " " + metadataCode)
     print("Metadata: " +str( metaStringData))
+
+  
+    
+    for letter in hintBadLetters:
+      if letter in solutionPart:
+        input("Error! Wrong letter in solution")
+
+              
     spellcheck(solution)
 
     currentDay += 1
@@ -88,7 +147,14 @@ def processFiles (preprocessedDir, convertedDir, initialDay, runMode):
 
     
     # Create Metadata File
-    metadata = {"solution": metaStringData["solution"], "hiddenWords": "", "imageCount":  metaStringData["imageCount"]}
+    metadata = {"solution": metaStringData["solution"], 
+                "hiddenWords": "", 
+                "imageCount":  metaStringData["imageCount"], 
+                "hintGoodLetters":  metaStringData["hintGoodLetters"], 
+                "hintBadLetters":  metaStringData["hintBadLetters"],
+                "hintHiddenLetters":metaStringData["hintHiddenLetters"],
+                "inspired":metaStringData["inspired"],
+                "credits":metaStringData["credits"]}
     
     with open(metadataFileURL, 'w') as newMetadataFile:
       json.dump(metadata, newMetadataFile)
